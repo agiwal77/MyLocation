@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1033459909486",
+    "project_id": "location-d8834",
+    "storage_bucket": "location-d8834.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1033459909486:android:30676596b58c6ccef2b77f",
+        "android_client_info": {
+          "package_name": "com.agiwal.location"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1033459909486-874mij9qac0t61mijaada5nem7s29pri.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG3fWj1gYagWlMZ2VnJDDQpLQRXqhPTFk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1033459909486-874mij9qac0t61mijaada5nem7s29pri.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
