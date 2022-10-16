@@ -49,7 +49,7 @@ public class LocationService extends Service {
     FusedLocationProviderClient fusedLocationClient;
     LocationRequest locationRequest;
     LocationCallback locationCallback;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private final FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     GeoApiContext context = new GeoApiContext.Builder()
             .apiKey("AIzaSyBG3fWj1gYagWlMZ2VnJDDQpLQRXqhPTFk")
@@ -71,13 +71,6 @@ public class LocationService extends Service {
                 Looper.getMainLooper());
     }
 
-    protected void createLocationRequest() {
-        LocationRequest locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(10000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-    }
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -93,9 +86,9 @@ public class LocationService extends Service {
         );
 
         locationRequest = LocationRequest.create();
-        locationRequest.setInterval(1000*60*5);
-        locationRequest.setFastestInterval(1000*60*5);
-        locationRequest.setMaxWaitTime(1000*60*5);
+        locationRequest.setInterval(1000*60*2);
+        locationRequest.setFastestInterval(1000*60*2);
+        locationRequest.setMaxWaitTime(1000*60*2);
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
 
         locationCallback = new LocationCallback() {
@@ -131,11 +124,6 @@ public class LocationService extends Service {
 
                 db.collection("map").document(MainActivity.User.toLowerCase()).set(map);
 
-                //locationArrayList.add(new LatLng(location.getLatitude(), location.getLongitude()));
-
-               /* for (Location location : locationResult.getLocations()) {
-                  location
-                }*/
             }
         };
         startLocationUpdates();

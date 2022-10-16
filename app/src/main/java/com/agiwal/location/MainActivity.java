@@ -39,21 +39,17 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        //Get button ID
         startServiceBtn = findViewById(R.id.btStart);
         stopServiceBtn = findViewById(R.id.btStop);
-
-        /**************/
+        //Initiate BluetoothManager
         BluetoothManager bluetoothManager = getSystemService(BluetoothManager.class);
         BluetoothAdapter bluetoothAdapter = bluetoothManager.getAdapter();
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-
             ActivityCompat.requestPermissions(this,  new String[]{Manifest.permission.BLUETOOTH_CONNECT,}, MY_BLUETOOTH_REQUEST);
         }
-        Toast.makeText(this, bluetoothAdapter.getName(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Welcome "+bluetoothAdapter.getName(), Toast.LENGTH_LONG).show();
         User = bluetoothAdapter.getName();
         startServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,17 +57,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
-
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-
                         if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
                                 != PackageManager.PERMISSION_GRANTED) {
-
-
                             AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                             alertDialog.setTitle("Background permission");
                             alertDialog.setMessage("SetMessage Background permission");
-
                             alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Start service anyway",
                                     new DialogInterface.OnClickListener() {
                                         public void onClick(DialogInterface dialog, int which) {
@@ -89,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
                                     });
 
                             alertDialog.show();
-
-
                         } else if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_BACKGROUND_LOCATION)
                                 == PackageManager.PERMISSION_GRANTED) {
                             starServiceFunc();
@@ -102,7 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 } else if (ActivityCompat.checkSelfPermission(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
                         != PackageManager.PERMISSION_GRANTED) {
                     if (ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-
 
                         AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                         alertDialog.setTitle("ACCESS_FINE_LOCATION");
@@ -116,7 +104,6 @@ public class MainActivity extends AppCompatActivity {
                                     }
                                 });
 
-
                         alertDialog.show();
 
                     } else {
@@ -126,17 +113,12 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         stopServiceBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 stopServiceFunc();
             }
         });
-
-
-        /***********/
-
     }
 
     @Override
@@ -152,14 +134,9 @@ public class MainActivity extends AppCompatActivity {
                         == PackageManager.PERMISSION_GRANTED) {
                     requestBackgroundLocationPermission();
                 }
-
             } else {
                 Toast.makeText(this, "ACCESS_FINE_LOCATION permission denied", Toast.LENGTH_LONG).show();
                 if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                 /*   startActivity(
-                            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                            Uri.fromParts("package", this.getPackageName(), null),),);*/
-
                     startActivity(new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
                             Uri.parse("package:com.agiwal.location")
                     ));
@@ -187,9 +164,9 @@ public class MainActivity extends AppCompatActivity {
         mServiceIntent = new Intent(this, mLocationService.getClass());
         if (!Util.isMyServiceRunning(mLocationService.getClass(), this)) {
             startService(mServiceIntent);
-            Toast.makeText(this, "Started!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Started!!", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "Stopped", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Service is already started!!", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -199,7 +176,6 @@ public class MainActivity extends AppCompatActivity {
         if (Util.isMyServiceRunning(mLocationService.getClass(), this)) {
             stopService(mServiceIntent);
             Toast.makeText(this, "Service stopped!!", Toast.LENGTH_SHORT).show();
-            //saveLocation(); // explore it by your self
         } else {
             Toast.makeText(this, "Service is already stopped!!", Toast.LENGTH_SHORT).show();
         }
