@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             }
-            return;
 
         } else if (requestCode == MY_BACKGROUND_LOCATION_REQUEST) {
 
@@ -155,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(this, "Background location permission denied", Toast.LENGTH_LONG).show();
             }
-            return;
         }
     }
 
